@@ -214,15 +214,22 @@ namespace logyun {
         //serial.writeLine("WifiConnect(" + ssid + "," + key + ")");
         
 
-        //let readWifiState = serial.readLine();
+        let readWifiState = "";
         while (true) {
             clear_ = serial.readString();
             serial.writeLine("WifiConnect(" + ssid + "," + key + ")");
-            let readWifiState = serial.readLine()
+            readWifiState = serial.readLine()
             if (readWifiState == "ok") {
                 break;
             }
-            basic.pause(1000);
+            basic.pause(500);
+            clear_ = serial.readString();
+            serial.writeLine("WifiCheck()");
+            readWifiState = serial.readLine()
+            if (readWifiState == "ok") {
+                break;
+            }
+            basic.pause(500);
         }
 
 
